@@ -1,0 +1,35 @@
+<%= form_for(@project) do |f| %>
+<h1><%= @project.title %></h1>
+<%= @project.description %>
+<ul>
+  <% @project.items.each do |item| %>
+
+  <%=
+            check_box_tag(
+            "project[item_ids][]",
+            item.id,
+            item.complete != 0,
+            :id => "item_ids_#{item.id}",
+            :readonly => true,
+            :disabled => true
+            )
+  %>
+
+ <!-- <input name="project[item_ids]" type="hidden" value="0"> -->
+  <%= label_tag "project_item_ids_#{item.id}", item.title %>
+  <%= link_to " Edit ", edit_item_path(item) %>
+  <%= link_to " Remove ", item_path(item.id), method: :delete %>
+  <br>
+  <% end %>
+
+</ul>
+<br>
+<br>
+
+  <br>
+  <br>
+<%= link_to "Add ToDo Item", new_item_path %>
+<br>
+<br>
+<%= link_to "Return to Projects", projects_url %>
+<% end %>
